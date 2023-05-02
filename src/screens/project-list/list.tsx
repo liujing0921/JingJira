@@ -1,5 +1,17 @@
 import React from "react";
-export const List = ({ list, users }) => {
+import { IUser } from "screens/project-list/search-panel";
+interface IProject {
+  id: number;
+  name: string;
+  personId: number;
+  organization: string;
+  created: number;
+}
+interface IList {
+  list: IProject[];
+  users: IUser[];
+}
+export const List = ({ list, users }: IList) => {
   return (
     <table>
       <thead>
