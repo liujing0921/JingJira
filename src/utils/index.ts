@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-export const isFalsy = (value: any) => (value === 0 ? false : !value);
+export const isFalsy = (value: unknown) => (value === 0 ? false : !value);
 // 在一个函数里，改变传入的对象本身是不好的
 export const cleanObject = (object: object) => {
   // 因为对象是引用类型，不要污染传入的对象
@@ -21,7 +21,7 @@ export const useMount = (callback: () => void) => {
     callback();
   }, []);
 };
-export const useDebounce = (value: any, delay?: number) => {
+export const useDebounce = <v>(value: v, delay?: number) => {
   const [debounceValue, setDebouncedVlaue] = useState(value);
   useEffect(() => {
     // 每次在value变化以后，设置一个定时器
@@ -30,4 +30,18 @@ export const useDebounce = (value: any, delay?: number) => {
     return () => clearTimeout(timeout);
   }, [value, delay]);
   return debounceValue;
+};
+export const useArray = <T>(array: T[]) => {
+  const [value, setValue] = useState(array);
+  return {
+    value,
+    setValue,
+    add: (item: T) => setValue([...value, item]),
+    clear: () => setValue([]),
+    removeIndex: (index: number) => {
+      const copy = [...value];
+      copy.splice(index, 1);
+      setValue(copy);
+    },
+  };
 };
