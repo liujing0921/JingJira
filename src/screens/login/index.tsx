@@ -1,7 +1,7 @@
 import { FormEvent } from "react";
 const apiUrl = process.env.React_APP_API_URL;
 export const LoginScreen = () => {
-  const login = (param: { username: string; passsword: string }) => {
+  const login = (param: { username: string; password: string }) => {
     fetch(`${apiUrl}/login`, {
       method: "POST",
       headers: {
@@ -19,10 +19,10 @@ export const LoginScreen = () => {
     event.preventDefault();
     const username = (event.currentTarget.elements[0] as HTMLInputElement)
       .value;
-    const passsword = (event.currentTarget.elements[1] as HTMLInputElement)
+    const password = (event.currentTarget.elements[1] as HTMLInputElement)
       .value;
     console.log(2);
-    login({ username, passsword });
+    login({ username, password });
   };
   return (
     <form onSubmit={handleSubmit}>
